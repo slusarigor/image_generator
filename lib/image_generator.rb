@@ -1,18 +1,22 @@
 class ImageGenerator
+  FOLDER = 'results/images/'
+
   attr_reader :parts
 
   def initialize(parts)
     @parts = parts
   end
 
-  def generate
+  def generate(new_image_name)
     init_image = MiniMagick::Image.new(parts[0].path)
     result = nil
     parts.each do |part|
       second_image = MiniMagick::Image.new(part.path)
-      result = init_image.composite(second_image) {|c| c.compose "Over" }
+      result = init_image.composite(second_image) do |c|
+        c.background "rgba(255,255,255,0.0)"
+      end
     end
-    result.write("images/generated_images/1.png")
+    result.write("#{FOLDER}#{new_image_name}.png")
   end
 end
 

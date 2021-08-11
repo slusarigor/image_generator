@@ -1,1 +1,15 @@
 <h1>Generate json</h1>
+
+<% if params[:success] %>
+  <div class="alert alert-success" role="alert">
+    JSON succesfully generated
+  </div>
+<% end %>
+
+<form action="/update_json" method="post">
+  <div class="mb-3">
+    <label for="url" class="form-label">URL</label>
+    <input type="text" class="form-control" id="url" name="url">
+  </div>
+  <button type="submit" class="btn btn-primary">Generate</button>
+</form>
