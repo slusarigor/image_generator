@@ -1,13 +1,16 @@
 class ImageGenerator
   FOLDER = 'results/images/'
 
-  attr_reader :parts
+  attr_reader :parts, :folder
 
-  def initialize(parts)
+  def initialize(parts, folder = FOLDER)
     @parts = parts
+    @folder = folder
   end
 
   def generate(new_image_name)
+    FileUtils.mkdir_p(folder)
+
     init_image = MiniMagick::Image.new(parts[0].path)
     result = nil
     parts.each do |part|
@@ -16,7 +19,7 @@ class ImageGenerator
         c.background "rgba(255,255,255,0.0)"
       end
     end
-    result.write("#{FOLDER}#{new_image_name}.png")
+    result.write("#{folder}#{new_image_name}.png")
   end
 end
 

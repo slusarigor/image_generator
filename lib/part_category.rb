@@ -1,8 +1,6 @@
 class PartCategory
   PARTS_FOLDER = 'images/parts'
 
-  CATEGORIES_NAMES = %w[Backgrounds Heads]
-
   attr_reader :name
 
   def initialize(name)
@@ -21,8 +19,12 @@ class PartCategory
     Dir["#{PARTS_FOLDER}/#{key}/*"].map { |path| Part.new(self, path) }
   end
 
+  def find_part_by_name(part_name)
+    parts.select { |part| part.name == part_name}
+  end
+
   def self.all
-    CATEGORIES_NAMES.map { |name| new(name)}
+    Dir["#{PARTS_FOLDER}/*"].map { |name| new(name.split('/').last.split('.').first)}
   end
 
   def self.find_by_key(key)

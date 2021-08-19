@@ -1,5 +1,22 @@
-<h2>Generate image</h2>
+<h2>Generate images</h2>
 
+<% if params[:success] %>
+  <div class="alert alert-success" role="alert">
+    Image generate successfully queued, please wait
+  </div>
+<% end %>
+
+<% if(File.exist?('results/results.zip')) %>
+  <div class="alert alert-success" role="alert">
+    Download last results <a href='/download'>here</a>
+  </div>
+<% elsif(Dir["results/images/*"].count > 0) %>
+  <div class="alert alert-success" role="alert">
+    Processed <%= Dir["results/images/*"].count %> count
+  </div>
+<% end %>
+
+<% if @categories.length > 0 %>
 <div class="overflow-auto">
   <form action="/generate_image" method="post">
     <% @categories.each do |category| %>
@@ -30,3 +47,8 @@
     <input class="btn btn-dark" type="submit" value="Generate">
   </form>
 </div>
+<% else %>
+  <div class="alert alert-danger" role="alert">
+    Please <a href="/upload_parts">Upload parts first.</a>
+  </div>
+<% end %>

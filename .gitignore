@@ -1,2 +1,5 @@
 *.idea
+/results/images
+/results/json
+/results/results.zip
 

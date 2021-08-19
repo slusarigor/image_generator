@@ -1,0 +1,30 @@
+<h2>Generate single images</h2>
+
+
+<% if @categories.length > 0 %>
+  <form action="/single_image_generate" method="post">
+    <div class="row py-2">
+      <h5>File name:</h5>
+      <input name="file_name" type="text" class="form-control" value="default">
+    </div>
+    <div class="row py-2">
+      <h5>Select parts: </h5>
+      <div class="overflow-auto">
+          <% @categories.each do |category| %>
+            <label for="<%= category.key %>" class="col-sm-2 col-form-label"><%= category.name %></label>
+            <select class="form-select", name="<%= category.key %>">
+              <option value="" selected>-</option>
+              <% category.parts.each do |part| %>
+                <option value="<%= part.name %>"><%= part.name %></option>
+              <% end %>
+            </select>
+          <% end %>
+          <input class="btn btn-dark" type="submit" value="Generate">
+      </div>
+    </div>
+  </form>
+<% else %>
+  <div class="alert alert-danger" role="alert">
+    Please <a href="/upload_parts">Upload parts first.</a>
+  </div>
+<% end %>
