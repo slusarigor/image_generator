@@ -1,5 +1,9 @@
 *.idea
+/images/parts
 /results/images
 /results/json
 /results/results.zip
+/single_results/images
+/single_results/json
+/single_results/single.zip
 
