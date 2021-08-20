@@ -15,17 +15,17 @@ class ImageGenerator
   def generate(new_image_name)
     FileUtils.mkdir_p(folder)
 
-    time = Time.now
-    init_image = MiniMagick::Image.new(parts[0].path)
-    parts.drop(1).each do |part|
-      second_image = MiniMagick::Image.new(part.path)
-      init_image = init_image.composite(second_image) do |c|
-        c.background "rgba(255,255,255,0.0)"
-      end
-      puts 'image part'
-    end
-    init_image.write("#{folder}#{new_image_name}.png")
-    puts Time.now - time
+    # time = Time.now
+    # init_image = MiniMagick::Image.new(parts[0].path)
+    # parts.drop(1).each do |part|
+    #   second_image = MiniMagick::Image.new(part.path)
+    #   init_image = init_image.composite(second_image) do |c|
+    #     c.background "rgba(255,255,255,0.0)"
+    #   end
+    #   puts 'image part'
+    # end
+    # init_image.write("#{folder}#{new_image_name}.png")
+    # puts Time.now - time
 
 
     # time = Time.now
@@ -58,6 +58,14 @@ class ImageGenerator
     # b = new_from_uri "https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png"
     # out = a.composite b, "over", x: 100, y: 100
     # out.write_to_file "x.jpg"
+    #
+
+    time = Time.now
+    images = parts.map{ |i| Vips::Image.new_from_file(i.path) }
+    init_image = images[0]
+    init_image = init_image.composite images.drop(1), :over
+    init_image.write_to_file("#{folder}#{new_image_name}.png")
+    puts "Vips = #{Time.now - time}"
   end
 end
 
