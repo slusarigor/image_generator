@@ -33,6 +33,7 @@ class App < Sinatra::Base
   end
 
   post '/upload_parts' do
+    File.delete('config_attributes.json') if File.exist?('config_attributes.json')
     FileUtils.rm_rf Dir.glob("images/parts")
     ZipExtractor.extract_zip(params[:file][:tempfile], "images/parts")
     redirect '/'
