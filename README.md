@@ -1,19 +1,21 @@
 # Local installation via Docker
 1. Make sure you have installed docker
    https://www.docker.com/get-started
-   
-2. Build application (run only once)
+
+2. Build application (run only once, from "image_generator" directory in console)
 ```
-docker build --tag image_generator .
+docker-compose build
 ```
 
 3. Run from console
 ```
-docker run -p 4567:4567 image_generator
+docker-compose up
 ```
 
 4. Open http://localhost:4567
 
+
+5. All generated images you can find in `image_generator/results` folder
  
 
 
