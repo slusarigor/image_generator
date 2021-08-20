@@ -10,4 +10,8 @@ class Part
   def to_h
     { name: name, category: category.name }
   end
+
+  def self.all
+    Dir["#{PartCategory::PARTS_FOLDER}/*/*"].map { |path| Part.new(self, path) }
+  end
 end

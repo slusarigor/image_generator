@@ -1,14 +1,15 @@
 class PartCategory
   PARTS_FOLDER = 'images/parts'
 
-  attr_reader :name
+  attr_reader :name, :id
 
   def initialize(name)
     @name = name
+    @id = name.split('_').first.to_i
   end
 
   def key
-    name.downcase.gsub(/[^a-z0-9\-_]+/, '-')
+    name.split('_').last.downcase.gsub(/[^a-z0-9\-_]+/, '-')
   end
 
   def rand_part
@@ -16,7 +17,7 @@ class PartCategory
   end
 
   def parts
-    Dir["#{PARTS_FOLDER}/#{key}/*"].map { |path| Part.new(self, path) }
+    Dir["#{PARTS_FOLDER}/#{name}/*"].map { |path| Part.new(self, path) }
   end
 
   def find_part_by_name(part_name)
@@ -24,7 +25,7 @@ class PartCategory
   end
 
   def self.all
-    Dir["#{PARTS_FOLDER}/*"].map { |name| new(name.split('/').last.split('.').first)}
+    Dir["#{PARTS_FOLDER}/*"].map { |name| new(name.split('/').last.split('.').first)}.sort_by(&:id)
   end
 
   def self.find_by_key(key)
