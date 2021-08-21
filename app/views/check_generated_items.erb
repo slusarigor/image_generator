@@ -1,0 +1,16 @@
+<h2>Check generated images</h2>
+
+<% if(Dir["results/json/*"].count > 0) %>
+  <% Part.all.each do |part| %>
+    <div class="row py-2">
+      <h5><%= part.name %> - Total <%= json_with_part(part.name).count %> count</h5>
+      Files - <%= json_with_part(part.name).map {|json| json[:file_name]} %>
+    </div>
+    <hr class="bg-danger border-2 border-top border-danger">
+
+  <% end %>
+<% else %>
+  <div class="alert alert-danger" role="alert">
+    There is no images yet. Please trigger image generate first.
+  </div>
+<% end %>

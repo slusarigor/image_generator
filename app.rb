@@ -71,4 +71,8 @@ class App < Sinatra::Base
   get '/download' do
     send_file "results/results.zip", :filename => 'results.zip', :type => 'Application/octet-stream'
   end
+
+  get '/check_generated_items' do
+    erb :check_generated_items
+  end
 end
