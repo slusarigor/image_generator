@@ -12,6 +12,6 @@ class Part
   end
 
   def self.all
-    Dir["#{PartCategory::PARTS_FOLDER}/*/*"].map { |path| Part.new(self, path) }
+    @all ||= PartCategory.all.map(&:parts).flatten
   end
 end
