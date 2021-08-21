@@ -49,13 +49,14 @@ class App < Sinatra::Base
     FileUtils.rm_rf Dir.glob("#{JsonGenerator::FOLDER}/*")
     File.open('config_attributes.json', 'w') { |file| file.write(params.to_json) }
 
-    #Thread.new do #todo
-      counters = params[:parts].to_h
-      images = ImagesDrafting.new(params[:count].to_i, counters).run
+    counters = params[:parts].to_h
+    images = ImagesDrafting.new(params[:count].to_i, counters).run
+
+    Thread.new do
       images.each_with_index { |parts, index| ImageGenerator.new(parts).generate(index) }
       images.each_with_index { |parts, index| JsonGenerator.new(parts).generate(index) }
       ZipFileGenerator.new('results', 'results/results.zip').write
-    # end
+    end
 
     redirect '/?success=true'
   end
