@@ -65,7 +65,7 @@ class ImageGenerator
     init_image = images[0]
     init_image = init_image.composite images.drop(1), :over
     init_image.write_to_file("#{folder}#{new_image_name}.png")
-    puts "Vips = #{Time.now - time}"
+    puts "Generate time = #{Time.now - time}"
   end
 end
 
