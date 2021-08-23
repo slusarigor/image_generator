@@ -17,7 +17,7 @@
 <% end %>
 
 <% if @categories.length > 0 %>
-  <form action="/generate_image" method="post">
+  <form action="/generate_image" method="post" onSubmit="document.getElementById('submit').disabled=true;">
     <div class="row py-2">
       <h5>Select count:</h5>
       <input name="count" type="text" class="form-control" value="<%= input_value('count') %>">
@@ -58,7 +58,7 @@
           </div>
         <% end %>
       <% end %>
-      <input class="btn btn-dark" type="submit" value="Generate">
+      <input class="btn btn-dark" type="submit" value="Generate" id="submit">
     </div>
   </form>
 <% else %>
