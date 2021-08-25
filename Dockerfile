@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM ruby:3.0.2-alpine
 
 ARG VIPS_VERSION=8.11.3
 ARG VIPS_URL=https://github.com/libvips/libvips/releases/download
