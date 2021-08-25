@@ -45,9 +45,9 @@
                     </div>
                     <div class="col-sm-4">
                       <select name="<%= "parts[#{category.key}][#{part.name}][exclude][]" %>" class="form-select" multiple aria-label="multiple select example">
-                        <option value="" <%= 'selected' if input_value('parts', category.key, part.name, 'exclude').include?('') %>>None</option>
+                        <option value="" <%= 'selected' if input_value('parts', category.key, part.name, 'exclude') == 0 || input_value('parts', category.key, part.name, 'exclude').include?('') %>>None</option>
                         <% Part.all.each do |exclude_part| %>
-                          <option value="<%= exclude_part.name %>" <%= 'selected' if input_value('parts', category.key, part.name, 'exclude')&.include?(exclude_part.name) %>><%= exclude_part.name %></option>
+                          <option value="<%= exclude_part.name %>" <%= 'selected' if input_value('parts', category.key, part.name, 'exclude') != 0 && input_value('parts', category.key, part.name, 'exclude')&.include?(exclude_part.name) %>><%= exclude_part.name %></option>
                         <% end %>
                       </select>
                     </div>
