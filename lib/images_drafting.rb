@@ -24,7 +24,7 @@ class ImagesDrafting
             exclude.concat(counters[category_key][part_name]['exclude']) if counters[category_key][part_name]['exclude']
           end
         else
-          fail "Something goes wrong, script could'n find fit part for #{new_image_parts.map(&:name)}. Please try again. If error persists call to support or review your exclude item configuration :)"
+          fail "Something goes wrong, script could'n find fit '#{category_key}' part for #{new_image_parts.map(&:name)}. Please try again. If error persists call to support or review your exclude item configuration :)"
         end
       end
       images << new_image_parts

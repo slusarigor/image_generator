@@ -58,7 +58,11 @@
           </div>
         <% end %>
       <% end %>
-      <input class="btn btn-dark" type="submit" value="Generate" id="submit">
+      <% if BatchGenerator.in_progress? %>
+        In progress...
+      <% else %>
+        <input class="btn btn-dark" type="submit" value="Generate" id="submit">
+      <% end %>
     </div>
   </form>
 <% else %>

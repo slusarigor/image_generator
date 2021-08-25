@@ -44,19 +44,7 @@ class App < Sinatra::Base
   end
 
   post '/generate_image' do
-    FileUtils.rm_rf Dir.glob("results/results.zip")
-    FileUtils.rm_rf Dir.glob("#{ImageGenerator::FOLDER}/*")
-    FileUtils.rm_rf Dir.glob("#{JsonGenerator::FOLDER}/*")
-    File.open('config_attributes.json', 'w') { |file| file.write(params.to_json) }
-
-    counters = params[:parts].to_h
-    images = ImagesDrafting.new(params[:count].to_i, counters).run
-
-    Thread.new do
-      images.each_with_index { |parts, index| ImageGenerator.new(parts).generate(index) }
-      images.each_with_index { |parts, index| JsonGenerator.new(parts).generate(index) }
-      ZipFileGenerator.new('results', 'results/results.zip').write
-    end
+    BatchGenerator.run(params) unless BatchGenerator.in_progress?
 
     redirect '/?success=true'
   end
