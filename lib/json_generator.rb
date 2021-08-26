@@ -19,7 +19,7 @@ class JsonGenerator
 
   def prepare_json
     json = { "attributes" => [] }
-    parts.each do |part|
+    parts.reject(&:blank?).each do |part|
       value = { "trait_type": part.category.name.split('_').last, "value": part.name.split('_').last}
       json['attributes'].push(value)
     end

@@ -16,7 +16,7 @@ class ImageGenerator
     FileUtils.mkdir_p(folder)
 
     time = Time.now
-    images = parts.map{ |i| Vips::Image.new_from_file(i.path) }
+    images = parts.reject(&:blank?).map{ |i| Vips::Image.new_from_file(i.path) }
     init_image = images[0]
     init_image = init_image.composite images.drop(1), :over
     init_image.write_to_file("#{folder}#{new_image_name}.png")

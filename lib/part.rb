@@ -11,6 +11,10 @@ class Part
     { name: name, category: category.name }
   end
 
+  def blank?
+    name == 'blank'
+  end
+
   def self.all
     @all ||= PartCategory.all.map(&:parts).flatten
   end

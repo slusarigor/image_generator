@@ -22,6 +22,8 @@ class ImagesDrafting
           if part_name != 'blank'
             new_image_parts << category.parts.find {|part| part.name == part_name }
             exclude.concat(counters[category_key][part_name]['exclude']) if counters[category_key][part_name]['exclude']
+          else
+            new_image_parts << Part.new(category, 'blank')
           end
         else
           fail "Something goes wrong, script could'n find fit '#{category_key}' part for #{new_image_parts.map(&:name)}. Please try again. If error persists call to support or review your exclude item configuration :)"
