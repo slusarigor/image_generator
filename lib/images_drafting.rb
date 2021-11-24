@@ -31,7 +31,7 @@ class ImagesDrafting
       end
       images << new_image_parts
     end
-    images
+    images.shuffle
   end
 
   private
@@ -64,7 +64,10 @@ class ImagesDrafting
         if part.category.id == category.id && !exclude.include?(part.name)
           available_category_parts = counters[category.key].select { |_key, count| count['value'].to_i > 0 }
           excluded_for_image = parts.map { |part| counters[part.category.key][part.name]['exclude'] }.flatten.compact
-          part_to_replace_name = available_category_parts.except(*excluded_for_image)&.keys&.sample
+          parts_to_replace_name = available_category_parts.except(*excluded_for_image)&.keys.shuffle
+          part_to_replace_name = parts_to_replace_name.find do |part_to_replace_name|
+            (counters[part.category.key][part_to_replace_name]['exclude'] & parts.map(&:name)).empty?
+          end
           if part_to_replace_name
             @images[i][j] = category.parts.find {|part| part.name == part_to_replace_name }
             return part.name
